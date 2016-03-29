@@ -40,8 +40,8 @@ function  Hquery ( vArg ){
     this.elements = [];  //
     switch( typeof vArg ) {
         case 'function':
-            bindEvent(window,'load',vArg)
-            break
+            bindEvent(window,'load',vArg);
+            break;
         case 'string':
             switch( vArg[0] ){
                 case '#':
@@ -76,7 +76,7 @@ Hquery.prototype.css = function( attr,value ){
         return getStyle(this.elements[0],attr);
     }
     return this;
-}
+};
 
 Hquery.prototype.html = function( str ){
     if(str){
@@ -88,35 +88,35 @@ Hquery.prototype.html = function( str ){
         return this.elements[0].innerHTML;
     }
     return this;
-}
+};
 
 Hquery.prototype.click = function(fn){
     for(var i=0;i<this.elements.length;i++){
         bindEvent(this.elements[i],'click',fn);
     }
     return this;
-}
+};
 
 Hquery.prototype.on = function( events,fn ){
     for(var i=0;i<this.elements.length;i++){
         bindEvent(this.elements[i],events,fn);
     }
     return this;
-}
+};
 
 Hquery.prototype.show = function( ){
     for(var i=0;i<this.elements.length;i++){
         this.elements[i].style.display = 'block';
     }
     return this;
-}
+};
 
 Hquery.prototype.hide = function( ){
     for(var i=0;i<this.elements.length;i++){
         this.elements[i].style.display = 'none';
     }
     return this;
-}
+};
 
 Hquery.prototype.hover = function( fn1,fn2 ){
     this.on('mouseover',fn1);
@@ -124,7 +124,7 @@ Hquery.prototype.hover = function( fn1,fn2 ){
         //bindEvent(this.elements[i],'mouseover',fn1);
         //bindEvent(this.elements[i],'mouseout',fn2);
     return this;
-}
+};
 
 Hquery.prototype.attr = function( attr,value){
     if(arguments.length == 2){
@@ -136,21 +136,21 @@ Hquery.prototype.attr = function( attr,value){
         return this.elements[0].getAttribute(attr);
     }
     return this;
-}
+};
 
 Hquery.prototype.eq = function(num){
     return $(this.elements[num]);
-}
+};
 
 Hquery.prototype.index = function( ){
-    var elems = this.elements[0].parentNode.children
+    var elems = this.elements[0].parentNode.children;
     for(var i=0;i<elems.length;i++){
         if( elems[i] == this.elements[0] ){
             return i;
         }
     }
     return this;
-}
+};
 
 Hquery.prototype.find = function( sel ){
     var arr = [];
@@ -166,12 +166,63 @@ Hquery.prototype.find = function( sel ){
         }
     }
     return $(arr);
-}
+};
+Hquery.prototype.addClass = function( classname ){
+    var addClass = classname.split(' ');
+    var oldClass = [];
+    var newClass = null;
+    for( var i=0;i<this.elements.length;i++ ){
+        oldClass = this.elements[i].className.split(' ');
+        for( var j=0;j<addClass.length;j++ ){
+            if( !(inArray( addClass[j],oldClass )) ){
+                oldClass.push( addClass[j] )
+            }
+        }
+        newClass = oldClass.join(' ');
+        this.elements[i].className = newClass;
+    }
+    function inArray(obj,arr){
+        for(var i=0;i<arr.length;i++){
+            if( obj == arr[i] ){
+                return true
+            }
+        }
+        return false
+    }
+    return this;
+};
+Hquery.prototype.removeClass = function( classname ){
+    var addClass = classname.split(' ');
+    var oldClass = [];
+    var newClass = null;
+    var indexClass = null;
+    for( var i=0;i<this.elements.length;i++ ){
+        oldClass = this.elements[i].className.split(' ');
+        for( var j=0;j<addClass.length;j++ ){
+            if( inArray( addClass[j],oldClass ) ){
+                indexClass = oldClass.indexOf(addClass[j]);
+                oldClass.splice( indexClass,1 )
+            }
+        }
+        newClass = oldClass.join(' ');
+        this.elements[i].className = newClass;
+    }
+    function inArray(obj,arr){
+        for(var i=0;i<arr.length;i++){
+            if( obj == arr[i] ){
+                return true
+            }
+        }
+        return false
+    }
+    return this;
+};
+
 
 Hquery.prototype.bbb = function( ){
 
 
-}
+};
 function $( vArg ){
     return new Hquery( vArg );
 }
