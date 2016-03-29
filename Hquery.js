@@ -1,39 +1,8 @@
 /**
  * Created by Administrator on 2016/1/9.
  */
-function bindEvent(obj,events,fn){
-    if(obj.addEventListener){
-        obj.addEventListener(events,fn,false);
-    }
-    else{
-        obj.attachEvent('on'+events,fn);
-    }
-}
-function getStyle(obj,attr){
-    if(obj.currentStyle){
-        return obj.currentStyle[attr];
-    }
-    else{
-        return getComputedStyle(obj,false)[attr];
-    }
-}
-function getByClass( oParent,sClass ){
-    var arr = [];
-    var elems = oParent.getElementsByTagName('*');
-    for( var i=0;i<elems.length;i++ ){
-        if( elems[i].className == sClass ){
-            arr.push( elems[i] );
-        }
-    }
-    return arr;
-
-}
-function toArray( elems ){
-    var arr=[];
-    for(var i=0;i<elems.length;i++){
-        arr.push( elems[i] );
-    }
-    return arr;
+function $( vArg ){
+    return new Hquery( vArg );
 }
 
 function  Hquery ( vArg ){
@@ -172,6 +141,37 @@ Hquery.prototype.bbb = function( ){
 
 
 }
-function $( vArg ){
-    return new Hquery( vArg );
+function bindEvent(obj,events,fn){
+    if(obj.addEventListener){
+        obj.addEventListener(events,fn,false);
+    }
+    else{
+        obj.attachEvent('on'+events,fn);
+    }
+}
+function getStyle(obj,attr){
+    if(obj.currentStyle){
+        return obj.currentStyle[attr];
+    }
+    else{
+        return getComputedStyle(obj,false)[attr];
+    }
+}
+function getByClass( oParent,sClass ){
+    var arr = [];
+    var elems = oParent.getElementsByTagName('*');
+    for( var i=0;i<elems.length;i++ ){
+        if( elems[i].className == sClass ){
+            arr.push( elems[i] );
+        }
+    }
+    return arr;
+
+}
+function toArray( elems ){
+    var arr=[];
+    for(var i=0;i<elems.length;i++){
+        arr.push( elems[i] );
+    }
+    return arr;
 }
