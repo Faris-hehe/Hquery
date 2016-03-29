@@ -172,6 +172,57 @@ Hquery.prototype.bbb = function( ){
 
 
 }
+
+Hquery.prototype.addClass = function( classname ){
+    var addClass = classname.split(' ');
+    var oldClass = [];
+    var newClass = null;
+    for( var i=0;i<this.elements.length;i++ ){
+        oldClass = this.elements[i].className.split(' ');
+        for( var j=0;j<addClass.length;j++ ){
+            if( !(inArray( addClass[j],oldClass )) ){
+                oldClass.push( addClass[j] )
+            }
+        }
+        newClass = oldClass.join(' ');
+        this.elements[i].className = newClass;
+    }
+    function inArray(obj,arr){
+        for(var i=0;i<arr.length;i++){
+            if( obj == arr[i] ){
+                return true
+            }
+        }
+        return false
+    }
+    return this;
+};
+Hquery.prototype.removeClass = function( classname ){
+    var addClass = classname.split(' ');
+    var oldClass = [];
+    var newClass = null;
+    var indexClass = null;
+    for( var i=0;i<this.elements.length;i++ ){
+        oldClass = this.elements[i].className.split(' ');
+        for( var j=0;j<addClass.length;j++ ){
+            if( inArray( addClass[j],oldClass ) ){
+                indexClass = oldClass.indexOf(addClass[j])
+                oldClass.splice( indexClass,1 )
+            }
+        }
+        newClass = oldClass.join(' ');
+        this.elements[i].className = newClass;
+    }
+    function inArray(obj,arr){
+        for(var i=0;i<arr.length;i++){
+            if( obj == arr[i] ){
+                return true
+            }
+        }
+        return false
+    }
+    return this;
+};
 function $( vArg ){
     return new Hquery( vArg );
 }
